@@ -11,10 +11,7 @@ An AI-powered decision support tool that generates culturally appropriate weekly
 * [Features](#features)
 * [Quick Start](#quick-start)
 * [Usage](#usage)
-* [Screenshots](#screenshots)
-* [Contributing](#contributing)
-* [License](#license)
-* [Contact](#contact)
+
 
 ---
 
