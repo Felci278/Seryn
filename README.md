@@ -17,7 +17,7 @@ An AI-powered decision support tool that generates culturally appropriate weekly
 
 ## About
 
-Seryn is a Python project developed by **Felci278**. It leverages AI and traditional machine learning models to recommend weekly diet plans tailored to the cultural preferences and health needs of Type 2 diabetic Emirati patients.
+Seryn is a Python project developed for a better and healthier nation. It leverages AI and traditional machine learning models to recommend weekly diet plans tailored to the cultural preferences and health needs of Type 2 diabetic Emirati patients.
 
 The goal is to simplify personalized dietary planning while promoting healthier lifestyles.
 
