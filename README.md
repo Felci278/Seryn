@@ -1,71 +1,165 @@
+# Seryn: AI-Assisted Weekly Diet Planning for Type 2 Diabetic Emirati Patients
 
-# Seryn ![Python](https://img.shields.io/badge/python-3.10+-blue) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow)
+![Python](https://img.shields.io/badge/python-3.10+-blue)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow)
 
-An AI-powered decision support tool that generates culturally appropriate weekly diet plans for Type 2 diabetic Emirati patients.
+Seryn is an applied ML/AI project that explores a hybrid workflow for culturally aware meal planning:
+1) profile understanding and data analysis,  
+2) retrieval-based plan composition,  
+4) structured weekly output.
 
----
-
-## Table of Contents
-
-* [About](#about)
-* [Features](#features)
-* [Quick Start](#quick-start)
-* [Usage](#usage)
-
+The repository mixes **research notebooks** (experimentation) and **Python modules** (Gardio UI layer).
 
 ---
 
-## About
+## 1. Problem Definition
 
-Seryn is a Python project developed for a better and healthier nation. It leverages AI and traditional machine learning models to recommend weekly diet plans tailored to the cultural preferences and health needs of Type 2 diabetic Emirati patients.
+Type 2 diabetes meal planning is constrained by multiple factors:
 
-The goal is to simplify personalized dietary planning while promoting healthier lifestyles.
+- Glycemic and nutrition constraints
+- Individual preferences and adherence
+- Cultural acceptability of foods
+- Weekly-level planning consistency (not one-off meal suggestions)
 
----
-
-## Features
-
-* Generates culturally relevant weekly meal plans.
-* Supports dietary requirements for Type 2 diabetes.
-* Easily extensible for new cuisines and diet preferences.
+Seryn targets this as a constrained recommendation/generation problem, with emphasis on Emirati dietary context.
 
 ---
 
-## Quick Start
+## 2. Technical Scope
 
-### Prerequisites
+### Core objectives
 
-* Git
-* Python 3.10+
-* Required libraries (install via `requirements.txt`)
+- Build a repeatable pipeline for weekly diet plan generation.
+- Support culturally relevant recommendations.
+- Preserve machine-readable output for downstream UI/analysis.
 
-### Clone the repository
+---
+
+## 3. Repository Layout (Technical)
+
+```text
+Seryn/
+├── app_ui.py                
+├── pipeline.py              
+├── test.py                  
+├── weekly_plan.json         
+├── data_exploration.ipynb   
+├── classification.ipynb     
+├── generation.ipynb         
+├── vector-search.ipynb      
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+---
+
+## 4. System Architecture (Conceptual)
+
+```text
+[Input Profile / Constraints]
+        |
+        v
+[Preprocessing + Feature Context]
+        |
+        +--> [Classification Module] ----+
+        |                                |
+        +--> [Vector Retrieval Module] --+--> [Plan Composer / Generator] --> [weekly_plan.json]
+        |                                |
+        +--> [Rule/Constraint Layer] ----+
+                                         |
+                                         v
+                                     [UI Layer]
+```
+
+### Module responsibilities (high-level)
+
+- **`pipeline.py`**
+  - Orchestrates processing stages
+  - Applies business logic/flow control
+  - Produces serialized output artifacts
+
+- **`app_ui.py`**
+  - Handles user-facing interaction path
+  - Bridges user inputs to pipeline execution
+  - Presents or exports generated plans
+
+- **Notebooks**
+  - `data_exploration.ipynb`: feature distributions, data quality checks, exploratory findings
+  - `classification.ipynb`: classifying the GI labels
+  - `vector-search.ipynb`: similarity-based retrieval prototypes
+
+
+---
+
+## 5. Data & Output Contract
+
+### Input (conceptual)
+Expected input dimensions include:
+- user demographics (optional based on implementation)
+- diabetic-friendly constraints
+- preference/cultural meal constraints
+- planning horizon (weekly)
+
+### Output
+Primary output artifact:
+
+- **`weekly_plan.json`**  
+  A structured weekly representation suitable for:
+  - UI rendering
+  - reproducibility checks
+  - potential API response payloads in future deployment
+
+
+---
+
+## 6. Execution Model
+
+## 6.1 Environment Setup
 
 ```bash
 git clone https://github.com/Felci278/Seryn.git
 cd Seryn
+python -m venv .venv
 ```
 
-### Install & Run
+Activate environment:
 
+- **macOS/Linux**
+  ```bash
+  source .venv/bin/activate
+  ```
+
+- **Windows (PowerShell)**
+  ```powershell
+  .venv\Scripts\Activate.ps1
+  ```
+
+Install dependencies (if available):
 ```bash
-python -m venv venv
-source venv/bin/activate   # Mac/Linux
-venv\Scripts\activate      # Windows
 pip install -r requirements.txt
-python main.py
 ```
 
+If no `requirements.txt` exists yet, install manually and freeze:
+```bash
+pip install <dependencies>
+pip freeze > requirements.txt
+```
+
+## 6.2 Run Paths
+
+### Pipeline execution
+```bash
+python pipeline.py
+```
+
+### UI path
+```bash
+python app_ui.py
+```
 ---
 
-## Usage
+## 7. License
 
-Example commands:
-
-```bash
-# Run the AI diet recommendation engine
-python main.py --user-data data/sample_user.csv
-```
-
-
-
+MIT License — see [LICENSE](./LICENSE).
